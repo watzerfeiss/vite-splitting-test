@@ -4,7 +4,7 @@ import Home from "./Home";
 import Layout from "./Layout";
 
 const AdminSection = React.lazy(() => import("./sections/AdminSection"));
-
+const SupportSection = React.lazy(() => import("./sections/SupportSection"));
 const PublisherSection = React.lazy(
   () => import("./sections/PublisherSection")
 );
@@ -35,6 +35,11 @@ const router = createBrowserRouter([
       {
         path: "admin",
         element: <AdminSection />,
+      },
+
+      {
+        path: "support",
+        element: <SupportSection />,
       },
     ],
   },
