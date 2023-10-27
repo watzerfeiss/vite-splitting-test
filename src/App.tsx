@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Home from "./Home";
+import Layout from "./Layout";
+
+const AdminSection = React.lazy(() => import("./sections/AdminSection"));
+
+const PublisherSection = React.lazy(
+  () => import("./sections/PublisherSection")
+);
+const PublisherDashboard = React.lazy(
+  () => import("./components/PublisherDashboard")
+);
+
+const router = createBrowserRouter([
+  {
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+
+      {
+        path: "workspace",
+        element: <PublisherSection />,
+        children: [
+          {
+            path: "dashboard",
+            element: <PublisherDashboard />,
+          },
+        ],
+      },
+
+      {
+        path: "admin",
+        element: <AdminSection />,
+      },
+    ],
+  },
+
+  {
+    path: "*",
+    element: <strong>404 Not Found</strong>,
+  },
+]);
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
