@@ -8,6 +8,7 @@ const PublisherSection = () => (
     <div className="main">
       <h1>Publisher section</h1>
       <p>Large object length: {largeObject.lorem.length}</p>
+
       <Suspense fallback={"Publisher section: loading..."}>
         <Outlet />
       </Suspense>
